@@ -156,3 +156,27 @@ import { ServerComponent } from './server/server.component';
 <!-- Add the new created component -->
 <app-server></app-server> 
 ```
+***
+### Step 03 - Create components using the CLI
+Instead of creating manual components we will create one using the CLI commands.  
+
+- We will now create a new component named `servers` (plural)
+- In your terminal type `ng generate component servers`   
+  or short way: `ng g c servers`
+- Update the html in [`servers.component.html`](src/app/servers/servers.component.html):
+```html
+<h2>List of servers</h2>
+<p>
+  <app-server></app-server>
+  <app-server></app-server>
+</p>
+```
+
+- Open the [`src/app/app.module.ts`](src/app/app.module.ts) and you will see that the component is already registered.
+- Update the [`src/app/app.module.html`](src/app/app.module.html) to display the new component
+```html
+<h1>{{ title }}</h1>
+<hr />
+<!-- Add the new created component -->
+<app-servers></app-servers>
+```
