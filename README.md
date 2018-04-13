@@ -43,3 +43,40 @@ The following code was executed to create this angular project
         ```  
     * The app will automatically reload if you change any of the source files.
     
+***
+### Step 01 - Basics
+- Make sure `ng serve` is running and open the browser on `http://localhost:4200/`  
+
+Lets navigate through the different project files to get idea what is going on
+
+#### **[`src/app/app.component.ts`](rc/app/app.component.ts)**
+
+- Change the application title inside the [`src/app/app.component.ts`](rc/app/app.component.ts)
+```js
+import { Component } from '@angular/core';
+// component decorator.
+// This component is executed when the application is started
+// Its being executed when the 'ng serve' inject the required JS and imports
+// into the final index.html file and its executing the Angular code
+
+@Component({
+  // This is the entry point for replacing the content with the 
+  // templates given by the components (html) files.
+  // Each component has its own css, html, js and more which we can reuse later on
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+
+export class AppComponent {
+  // Set the title which will be passed to the template
+  title = 'Angular Tutorial';
+}
+```
+#### **[`src/app/app.component.html`](src/app/app.component.html)**
+
+- Change the [`src/app/app.component.html`](src/app/app.component.html) to display the title 
+```html
+<h1>{{ title }}</h1>
+```
+   
