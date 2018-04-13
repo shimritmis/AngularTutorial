@@ -42,4 +42,11 @@ We are going to create new component
 
 - Define the component in the `server.component.ts`   
   View the code to see whats is required.
-- Register the componenet inside `app.module.ts`   
+- Register the component inside `app.module.ts`   
+
+### Step 03 - Create components using the CLI
+Instead of creating manual components we will create one using the CLI commands.  
+
+- In your terminal type `ng generate component servers`   
+or short way: `ng g c servers`
+- Update the html code to the `servers.component.html`
