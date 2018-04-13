@@ -79,4 +79,80 @@ export class AppComponent {
 ```html
 <h1>{{ title }}</h1>
 ```
-   
+***
+### Step 02 - Create components (Manually)
+We are going to create new component.
+
+- Create new folder named `server` under the `app` folder. 
+- Component is build from:
+
+ Role    | File name
+---------|-----------
+Template |  &lt;name&gt;.&lt;component&gt;**.html**
+Style    |  &lt;name&gt;.&lt;component&gt;**.scss**
+Code     |  &lt;name&gt;.&lt;component&gt;**.ts**
+
+- As explained above create the following files:
+   - [`server.component.html`](src/app/app.component.html)
+   - [`server.component.scss`](src/app/app.component.scss)
+   - [`server.component.ts`](src/app/app.component.ts)
+
+    #### **[`src/app/server/server.component.html`](src/app/server/server.component.html)**
+    ```html
+    <h2>Server component</h2>
+    ```
+
+    #### **[`src/app/server/server.component.scss`](src/app/server/server.component.scss)**
+    ```css
+    h2  {color: green;}
+    ```
+
+    #### **[`src/app/server/server.component.ts`](src/app/server/server.component.ts)**
+    ```js
+    // This file will contain our new Component
+    // A Component is simply a TypeScript class
+
+    // Import the Component package
+    import { Component } from "@angular/core";
+
+    // Create our first Component
+    // Tell angular that this is a component and not simple TS class 
+    @Component({
+    // Configure the Component so angular can know what to do with this class.
+
+    // The html selector for this component (unique selector)
+    // In our case this is server component
+    selector: 'app-server',
+
+    // The template of this component
+    templateUrl: './server.component.html',
+
+    // The stylesheet - [Array]
+    styleUrls: ['./server.component.scss']
+
+    })
+
+    export class ServerComponent {}
+    ```
+
+- Register the component inside [`src/app/app.module.ts`](src/app/app.module.ts)
+```js
+// Import our new Server component
+import { ServerComponent } from './server/server.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    // We need to register out new server component so we need to 
+    // "tell" Angular that we have new module which we will wish to use
+    ServerComponent
+  ],
+```
+- The last step is to add the new component to the main template   
+#### **[`src/app/app.component.html`](src/app/app.component.html)**
+```html
+<h1>{{ title }}</h1>
+<hr/>
+<!-- Add the new created component -->
+<app-server></app-server> 
+```
