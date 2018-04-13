@@ -29,4 +29,17 @@ Lets navigate through the diffrent project fiels to get idea what is going on
 - Make sure `ng serve` is running and open the browser on `http://localhost:4200/`  
 - Change the application title inside the `app.component.ts`
 - Change the `app/component.html` to display the title 
+
+### Step 02 - Create manual components
+We are going to create new component   
+
+- Create new folder named `serevr` under the `app` folder. 
+- Inside the folder create the following new files
    
+   - `server.component.css`
+   - `server.component.html`
+   - `server.component.ts` 
+
+- Define the component in the `server.component.ts`   
+  View the code to see whats is required.
+- Register the componenet inside `app.module.ts`   
