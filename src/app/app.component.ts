@@ -20,4 +20,28 @@ export class AppComponent {
     name: 'Testserver',
     content: 'Test server'
   }];
+
+  // Set the data which will be passed to this function from the event
+  // Once we pass the object we will add it to the array
+  onServerAdded(serverData: {
+    serverName: string,
+    serverContent: string
+  }) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
+
+  onServerBlueprintAdded(blueprintData: {
+    serverName: string,
+    serverContent: string
+  }) {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: blueprintData.serverName,
+      content: blueprintData.serverContent
+    });
+  }
 }

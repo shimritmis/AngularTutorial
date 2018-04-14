@@ -119,3 +119,10 @@ Create multiple components and add communication between them
 - In order to "expose" it to parent component we need to add `decorator` **`@Input()`** to the element.  
   Dont forget to add the required import as well
 
+### Step 12 - Binding custom events
+- In this step we want to notify the parent component that inner component was updated
+- Update the `app.component.ts` with the event handlers code
+- Update the `app.component.html` to support the new event we created
+- Add the 2 custom event data in `cockpit.component.ts`. Make sure to expose them with `EventEmitter` & `@Output()`  
+  Dont forget to add the required import as well
+- Inside `cockpit.component.ts` fire (emit) the events
