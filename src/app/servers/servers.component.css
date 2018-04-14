@@ -1,0 +1,11 @@
+.allowNewServer {
+    color: white;
+}
+
+.allowNewServer[data-allow="true"] {
+    background: green;
+}
+
+.allowNewServer[data-allow="false"] {
+    background: red;
+}

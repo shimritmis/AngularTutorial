@@ -63,3 +63,11 @@ There are several forms of Binding. Lets start with the simple one
 - Edit the `ServerComponent` inside the `server.component.ts` and add the variables and the method as appear in the source code
 - Edit the template `server.component.html` and add the binding code to display the content
 
+### Step 06 - Property Binding
+At this step we update property using timer and the changes will be reflacted in the code. We will add and update button state.
+- Edit `servers.component.ts` and add the required code
+- The syntax for property binding is `[<html propery>]=<angular property>`
+- To boind attribute like dataset use the `[attr.<attribute name>]` => `[attr.data-allow]="allowNewServer"`
+
+
+
