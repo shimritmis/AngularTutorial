@@ -98,4 +98,15 @@ In the preovoius step we have demostarted 2 way binding. Lets dive into it now.
         - Add the required css code
         - Replace the `[attr.data-allow]="allowNewServer"` with ngClass code from the source
 
-    
+### Step 10 - Multiple components
+Create multiple components and add communication between them
+- For this step we will need to get familier with `ngFor` Directive, so read about it before starting this step.
+- You can simply checkout this step and copy the content. This steps will be used as placeholder for the content. If you wish to do it your self follow the steps below.
+- Create the first component without testing specs `ng g c cockpit --spec false`
+- Create the second component without testing specs `ng g c server-element --spec false`
+- Copy the initial html code from the `cockpit.component.html` to your componenet
+- Copy the content of the `server-element.component.html` into your component
+- Copy the content of the `app.component.ts`
+#### At this point the project should be broken and you will see the following message
+`Property 'serverElements' does not exist on type 'CockpitComponent'.`
+- To fix it for now we will comment out the code so we can continue.

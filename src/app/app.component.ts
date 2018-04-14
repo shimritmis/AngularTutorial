@@ -14,6 +14,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  // Set the title which will be passed to the template
-  title = 'Angular Tutorial';
+  serverElements = [];
 }
