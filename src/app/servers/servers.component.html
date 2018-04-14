@@ -12,10 +12,21 @@
             in this case it will fired when the user type something
 -->
 <label>New server Name:</label>
-<!-- $event will send the data of the event handler, the data and information of the event -->
+<!-- 
+  $event will send the data of the event handler, the data and information of the event
+
+  [(ngModel)] - 2 way binding data between client side and the Angular internal code .
+  The value will be updated whenever this value is updated on the model.
+  Using 2Way binding can replace the event handler method
+-->
+<!-- input type="text"
+           class="forn-control"
+           (input)="onUpdateServerName($event)" 
+-->
+
 <input type="text"
        class="forn-control"
-       (input)="onUpdateServerName($event)">
+       [(ngModel)]="serverName">
 <!-- The button for creating new server -->
 <button class="btn allowNewServer"
         [attr.data-allow]="allowNewServer"

@@ -74,3 +74,10 @@ At this step we update property using timer and the changes will be reflacted in
 - Edit `servers.component.ts` and add the required variables and methods
 - Update the component html and add the required code. In this step we demonstrated the prevoius bindings as well.
 
+### Step 08 - 2 way binding
+In the preovoius step we have demostarted 2 way binding. Lets dive into it now.
+- 2Way bindign allow us to display iitial values of the property for example
+- The syntax is combination of `[] && ()` => `[(ngModel)]`
+- Add the import `FormsModule` inside the `app.module.ts` (import declation & inside the imports array).
+  **!NOte: `FormsModule` should be in `imports` not in `declarations`**
+- Declare the `ngModel` inside our `servers.component.html`
