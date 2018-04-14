@@ -238,3 +238,39 @@ There are several forms of Binding. Lets start with the simple one
 <p>Data binding [variable] serverId: {{ serverId }} </p>
 <p>Data binding [method] serverStatus: {{ getServerStatus() }} </p>
 ```
+***
+### Step 06 - Property Binding
+At this step we update property using timer and the changes will be reflected in the code.
+<br/> 
+We will add and update button state.
+- The syntax for property binding is `[<html property>]=<angular property>`
+- To bind custom attributes like `dataset` use the `attr.` prefix before the attribute name
+```js
+[attr.data-allow]="allowNewServer"`
+```
+- Edit [`src/app/server/servers.component.html`](src/app/server/servers.component.html):
+```html
+<!-- Button for adding more servers -->
+<!-- 
+    [] mark to angular that we wish to bind the property
+    so we can update it from the JS code
+-->
+<p>allowNewServers:
+  <button class="btn btn-primary" [disabled]="!allowNewServer">Add servers</button>&nbsp;
+  <span class="btn allowNewServer" [attr.data-allow]="allowNewServer">{{ allowNewServer }} </span>
+</p>
+```
+- Edit the scss file [`src/app/server/servers.component.scss`](src/app/server/servers.component.scss):
+```css
+.allowNewServer {
+    color: white;
+}
+
+.allowNewServer[data-allow="true"] {
+    background: green;
+}
+
+.allowNewServer[data-allow="false"] {
+    background: red;
+}
+```

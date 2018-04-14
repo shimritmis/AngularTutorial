@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServersComponent implements OnInit {
 
-  constructor() { }
+  // Flag to mark if we can add new server or not
+  allowNewServer = false;
+
+  constructor() {
+
+    // Simulate value change for allowing adding new server
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 5000);
+
+  }
 
   ngOnInit() {
   }
