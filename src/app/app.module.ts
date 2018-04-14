@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
 import { ServerElementComponent } from './server-element/server-element.component';
+import { ServersManagerComponent } from './servers-manager/servers-manager.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ServerElementComponent } from './server-element/server-element.componen
     // "tell" Angular that we have new modal which we will wish to use
     ServerComponent,
     ServersComponent,
-    ServerElementComponent
+    ServerElementComponent,
+    ServersManagerComponent
   ],
   imports: [
     BrowserModule,

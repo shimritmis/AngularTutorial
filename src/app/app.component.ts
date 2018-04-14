@@ -28,4 +28,28 @@ export class AppComponent {
     name: 'Test Server 2',
     content: 'Test Server 2'
   }];
+
+  // Set the data which will be passed to this function from the event
+  // Once we pass the object we will add it to the array
+  appServerACreated(serverData: {
+    serverName: string,
+    serverContent: string
+  }) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
+
+  appServerBCreated(serverData: {
+    serverName: string,
+    serverContent: string
+  }) {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
 }
