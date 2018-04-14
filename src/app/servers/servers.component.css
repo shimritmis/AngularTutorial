@@ -2,11 +2,13 @@
     color: white;
 }
 
-.allowNewServer[data-allow="true"] {
+.allowNewServer[data-allow="true"],
+.allowNewServerAllowed {
     background: green;
 }
 
-.allowNewServer[data-allow="false"] {
+.allowNewServer[data-allow="false"],
+.allowNewServerNotAllowed {
     background: red;
 }
 

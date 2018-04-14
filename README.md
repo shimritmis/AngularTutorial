@@ -81,3 +81,21 @@ In the preovoius step we have demostarted 2 way binding. Lets dive into it now.
 - Add the import `FormsModule` inside the `app.module.ts` (import declation & inside the imports array).
   **!NOte: `FormsModule` should be in `imports` not in `declarations`**
 - Declare the `ngModel` inside our `servers.component.html`
+
+### Step 09 - Directives
+- Directives are html extentions (DOM) which are being created from templates (usually not always).
+- Directives are usually attributes
+- The syntax is `*` for example : `*ngIf=...`
+    
+    #### ngIf (Structural directive)
+    - `ngIf` is used to conditionaly display content.
+    - The simple way is to use it as attribute
+    - We can also us it with `local reference` for `if else` syntax
+
+    #### ngStyle / ngClass
+    - `ngStyle` is used to conditionaly add style to an element.
+    - `ngClass` is used to conditionaly add css class to an element.
+        - Add the required css code
+        - Replace the `[attr.data-allow]="allowNewServer"` with ngClass code from the source
+
+    

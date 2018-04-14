@@ -29,16 +29,23 @@
        [(ngModel)]="serverName">
 <!-- The button for creating new server -->
 <button class="btn allowNewServer"
-        [attr.data-allow]="allowNewServer"
+        [ngClass]="{ 
+          'allowNewServerAllowed': allowNewServer === true, 
+          'allowNewServerNotAllowed': allowNewServer === false 
+        }"
         [innerText]="allowNewServerButtonText"
         [disabled]="!allowNewServer"
         (click)="onCreateServer()"></button>
 
 <br/>
-<p>Server creation status:
+<!-- Using ngIf with local reference (if else synatx)-->
+<p *ngIf="serverCreated; else noServer">Server creation status:
   <b class="highlight"> {{ serverCreationStatus }}</b>
 </p>
-
+<!-- The template which will be used if ngIf is false -->
+<ng-template #noServer>
+  No new server yet ...
+</ng-template>
 <!-- Echo the server name using property binding-->
 <p>2 Way binding. Echo the server name as we type:
   <b class="highlight">{{ serverName }}</b>
