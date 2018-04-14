@@ -50,3 +50,8 @@ Instead of creating manual components we will create one using the CLI commands.
 - In your terminal type `ng generate component servers`   
 or short way: `ng g c servers`
 - Update the html code to the `servers.component.html`
+
+### Step 04 - Adding bootstrap CSS
+- install bootstrap `npm i bootstrap`
+- Add the bootstrap css path to the `.angular-cli.json`
+- Add html code to verify that the css is loaded
