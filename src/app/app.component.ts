@@ -14,5 +14,10 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  serverElements = [];
+  // set the `serverElements` with intial value
+  serverElements = [{
+    type: 'server',
+    name: 'Testserver',
+    content: 'Test server'
+  }];
 }

@@ -110,3 +110,12 @@ Create multiple components and add communication between them
 #### At this point the project should be broken and you will see the following message
 `Property 'serverElements' does not exist on type 'CockpitComponent'.`
 - To fix it for now we will comment out the code so we can continue.
+
+### Step 11 - Binding custom properties
+- Add the required code inside the `server-element.component.ts`. This code define our custom element
+- Inside the `app.component.ts` define the `serverElements`, again copy it from the initial code.
+- Add the `[element]` property to the `app.component.html`.  
+  At this point we should see error (*in the browser console*) since the property can be accessed only from within `server-element` component and we are adding it to the app component
+- In order to "expose" it to parent component we need to add `decorator` **`@Input()`** to the element.  
+  Dont forget to add the required import as well
+
