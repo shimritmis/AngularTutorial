@@ -1,19 +1,19 @@
 .allowNewServer {
-  color: white;
+    color: white;
 }
 
 .allowNewServer[data-allow="true"],
 .allowNewServerAllowed {
-  background: green;
+    background: green;
 }
 
 .allowNewServer[data-allow="false"],
 .allowNewServerNotAllowed {
-  background: red;
+    background: red;
 }
 
 .highlight {
-  padding: 0 3px;
-  background: yellow;
-  color: black;
+    padding: 0 3px;
+    background: yellow;
+    color: black;
 }
