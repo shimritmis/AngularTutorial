@@ -6,12 +6,16 @@
       </div>
       <div class="card-body">
         <div class="card-text">
+          <div class="row justify-content-center">
+            <app-servers-manager (serverAEvent)="appServerACreated( $event )" (serverBEvent)="appServerBCreated( $event )">
+            </app-servers-manager>
+          </div>
+          <hr />
           <h5 class="text-center">List of servers {{serverElements.length}}</h5>
           <div class="row justify-content-center">
             <!-- this line "does" the trick, here we process the list of elements-->
-            <div *ngFor="let serverElement of serverElements">
-              <app-server-element [serverElement]="serverElement"></app-server-element>
-            </div>
+            <app-server-element *ngFor="let serverElement of serverElements" [serverElement]="serverElement">
+            </app-server-element>
           </div>
         </div>
       </div>

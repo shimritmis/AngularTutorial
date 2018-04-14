@@ -532,4 +532,168 @@ export class ServerElementComponent implements OnInit {
 
 }
 ```
+** At this point the app does nothing since the component methods are remarked
+***
+### Step 11 - Binding custom properties with `@Input` & `EventEmitter`
+In this section we will bind properties between components. We will cover the `@Input` element.
 
+- Add the required code inside the [`src/app/server-element/server-element.component.ts`](src/app/server-element/server-element.component.ts)
+```js
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-server-element',
+  templateUrl: './server-element.component.html',
+  styleUrls: ['./server-element.component.scss']
+})
+export class ServerElementComponent implements OnInit {
+  // Define our custom element which is used in the template (html)
+  // This element is private for this component and now we want to "share" it 
+  // with other components
+  // If we wish to use the property with a different name than the default name we can
+  // set the name inside the `@Input()` decorator for example:
+  //    @Input('<any name we want>') => @Input('serverItem') and we will use the same name
+  //    to reference it in the html template 
+  //    `[serverItem]="serverElement"`
+  @Input() serverElement: {
+    type: string,
+    name: string,
+    content: string
+  }
+
+  constructor() { }
+
+  ngOnInit() { }
+}
+```
+- In order to "expose" it to parent component we need to add `decorator` **`@Input()`** to the element.  
+  Dont forget to add the required import as well
+
+- Update [`src/app/app.component.ts`](src/app/app.component.ts) and add the binded event handlers
+ ```js
+// Set the data which will be passed to this function from the event
+// Once we pass the object we will add it to the array
+appServerACreated(serverData: {
+  serverName: string,
+  serverContent: string
+}) {
+  this.serverElements.push({
+    type: 'server',
+    name: serverData.serverName,
+    content: serverData.serverContent
+  });
+}
+
+  appServerBCreated(serverData: {
+  serverName: string,
+  serverContent: string
+}) {
+  this.serverElements.push({
+    type: 'blueprint',
+    name: serverData.serverName,
+    content: serverData.serverContent
+  });
+}
+```
+- Add the `[serverElement]` property to the [`src/app/app.component.html`](src/app/app.component.html) 
+```html
+<!-- This is the required line-->
+<app-server-element 
+    *ngFor="let serverElement of serverElements" 
+    [serverElement]="serverElement">
+</app-server-element>
+```
+```html
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">
+        {{ title }}
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <div class="row justify-content-center">
+            <app-servers-manager (serverAEvent)="appServerACreated( $event )" 
+                                 (serverBEvent)="appServerBCreated( $event )">
+            </app-servers-manager>
+          </div>
+          <hr />
+          <h5 class="text-center">List of servers {{serverElements.length}}</h5>
+          <div class="row justify-content-center">
+            <!-- this line "does" the trick, here we process the list of elements-->
+            <app-server-element *ngFor="let serverElement of serverElements" [serverElement]="serverElement">
+            </app-server-element>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+- Update [`src/app/servers-manager/servers-manager.component.html`](src/app/servers-manager/servers-manager.component.html)
+```html
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h5>Add new Servers</h5>
+    <label>Server Name</label>
+    <input type="text" class="form-control" [(ngModel)]="newServerName">
+    <label>Server Content</label>
+    <input type="text" class="form-control" [(ngModel)]="newServerContent">
+    <br />
+    <button class="btn btn-primary btn-sm" (click)="serverManagerAddServerA( $event )">Add Server A</button>&nbsp;
+    <button class="btn btn-primary btn-sm" (click)="serverManagerAddServerB( $event )">Add Server B</button>
+  </div>
+</div>
+```
+- Update [`src/app/servers-manager/servers-manager.component.ts`](src/app/servers-manager/servers-manager.component.ts) with the `@Output()` && events handlers
+```js
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-servers-manager',
+  templateUrl: './servers-manager.component.html',
+  styleUrls: ['./servers-manager.component.scss']
+})
+export class ServersManagerComponent implements OnInit {
+
+  // The new server name
+  newServerName: String;
+
+  // The server content
+  newServerContent: String;
+
+  // Add the 2 event data structures that we need to pass to the custom event
+  // We want to make sure that those properties are accessed by the event.
+  // Pass the required data inside the <>
+  @Output() serverAEvent = new EventEmitter<{
+    serverName: String,
+    serverContent: String
+  }>();
+
+  @Output() serverBEvent = new EventEmitter<{
+    serverName: String,
+    serverContent: String
+  }>();;
+
+  constructor() { }
+
+  ngOnInit() { }
+
+  // Initial code for this step
+  serverManagerAddServerA() {
+    // Emit the event with the required data as defined above in the `EventEmitter` signature
+    this.serverAEvent.emit({
+      serverName: this.newServerName,
+      serverContent: this.newServerContent
+    });
+  }
+
+  serverManagerAddServerB() {
+    // Emit the event with the required data as defined above in the `EventEmitter` signature
+    this.serverBEvent.emit({
+      serverName: this.newServerName,
+      serverContent: this.newServerContent
+    });
+  }
+}
+```
