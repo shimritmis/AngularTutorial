@@ -55,3 +55,11 @@ or short way: `ng g c servers`
 - install bootstrap `npm i bootstrap`
 - Add the bootstrap css path to the `.angular-cli.json`
 - Add html code to verify that the css is loaded
+
+### Step 05 - Data Binding
+Data binding allow us to add dynamic content to the application.    
+There are several forms of Binding. Lets start with the simple one
+
+- Edit the `ServerComponent` inside the `server.component.ts` and add the variables and the method as appear in the source code
+- Edit the template `server.component.html` and add the binding code to display the content
+
