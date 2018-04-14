@@ -209,3 +209,32 @@ Instead of creating manual components we will create one using the CLI commands.
   <div class="col-4"></div>
 </div>
 ```
+***
+### Step 05 - Data Binding
+Data binding allow us to add dynamic content to the application.    
+There are several forms of Binding. Lets start with the simple one
+
+ - Edit the `ServerComponent` inside the [`src/app/server/server.component.ts`](src/app/server/server.component.ts) and add the variables and the method
+ ```js
+ export class ServerComponent {
+
+  // We dont need to declare the types.
+  // typeScript will do it automatically.
+
+  // Add type script number type
+  serverId: number = 10;
+  // Add the server status as string
+  serverStatus: string = 'offline';
+
+  // Add function for data binding to return server status
+  getServerStatus() {
+    return this.serverStatus;
+  }
+}
+```
+- Edit the template [`src/app/server/server.component.html`](src/app/server/server.component.html) and add the binding code to display the content
+```html
+<h2>Server component</h2>
+<p>Data binding [variable] serverId: {{ serverId }} </p>
+<p>Data binding [method] serverStatus: {{ getServerStatus() }} </p>
+```

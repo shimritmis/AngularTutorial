@@ -23,4 +23,17 @@ import { Component } from "@angular/core";
 
 export class ServerComponent {
 
+  // We dont need to declare the types.
+  // typeScript will do it automatically.
+
+  // Add type script number type
+  serverId: number = 10;
+  // Add the server status as string
+  serverStatus: string = 'offline';
+
+  // Add function for data binding to return server status
+  getServerStatus() {
+    return this.serverStatus;
+  }
+
 }
