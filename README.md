@@ -274,3 +274,95 @@ We will add and update button state.
     background: red;
 }
 ```
+***
+### Step 07 - Event Binding
+- The syntax for adding an event binding is using `(<event name>)="<event handler>"`
+- Edit [`src/app/servers/servers.component.ts`](src/app/servers/servers.component.ts) and add the required variables and methods
+```js
+export class ServersComponent implements OnInit {
+
+  // Flag to mark if we can add new server or not
+  allowNewServer = false;
+
+  // The text of the button
+  allowNewServerButtonText = "Create server";
+
+  // Status to konw if server was created
+  serverCreationStatus = "No server was created";
+
+  // the server name which the user will input
+  serverName = '--';
+
+  constructor() {
+
+    // Simulate value change for allowing adding new server
+    setTimeout(() => {
+      this.allowNewServer = true;
+    }, 5000);
+  }
+
+  ngOnInit() {
+  }
+
+  // Method for listening when we create new servers
+  // Naming convention: 'On...' for event
+  onCreateServer() {
+    this.serverCreationStatus = "Server was created";
+  }
+
+  // the event is passed from the html when we click on the button
+  // since we added $event to the button
+  onUpdateServerName(event) {
+    // type script code for getting the value
+    this.serverName = (<HTMLInputElement>event.target).value;
+  }
+}
+
+```
+- Update the component html and add the required code. [`src/app/servers/servers.component.html`](src/app/servers/servers.component.html)
+  In this step we demonstrated the previous bindings as well.
+```html
+<h2>List of servers</h2>
+<p>
+  <app-server></app-server>
+</p>
+<!-- 
+    [] mark to angular that we wish to bind the property
+    so we can update it from the JS code
+
+    Adding event handlers 
+    `()` is used add event binding for the element
+    (click) bind to the click event. 
+            in this case it will fired when the user type something
+-->
+<label>New server Name:</label>
+<!-- $event will send the data of the event handler, the data and information of the event -->
+<input  type="text" 
+        class="form-control" 
+        (input)="onUpdateServerName($event)">
+<!-- The button for creating new server -->
+<button class="btn allowNewServer" 
+        [attr.data-allow]="allowNewServer" 
+        [innerText]="allowNewServerButtonText" 
+        [disabled]="!allowNewServer"
+        (click)="onCreateServer()"></button>
+
+<br />
+<p>Server creation status:
+  <b class="highlight"> {{ serverCreationStatus }}</b>
+</p>
+
+<!-- Echo the server name using property binding-->
+<p>2 Way binding. Echo the server name as we type:
+  <b class="highlight">{{ serverName }}</b>
+</p>
+
+```
+-- Add the following css to the scss file [[`src/app/servers/servers.component.scss`](src/app/servers/servers.component.scss)]
+```css
+.highlight {
+  padding: 0 3px;
+  background: yellow;
+  color: black;
+}
+```

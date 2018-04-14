@@ -2,12 +2,28 @@
 <p>
   <app-server></app-server>
 </p>
-<!-- Button for adding more servers -->
 <!-- 
     [] mark to angular that we wish to bind the property
     so we can update it from the JS code
+
+    Adding event handlers 
+    `()` is used add event binding for the element
+    (click) bind to the click event. 
+            in this case it will fired when the user type something
 -->
-<p>allowNewServers:
-  <button class="btn btn-primary" [disabled]="!allowNewServer">Add servers</button>&nbsp;
-  <span class="btn allowNewServer" [attr.data-allow]="allowNewServer">{{ allowNewServer }} </span>
+<label>New server Name:</label>
+<!-- $event will send the data of the event handler, the data and information of the event -->
+<input type="text" class="form-control" (input)="onUpdateServerName($event)">
+<!-- The button for creating new server -->
+<button class="btn allowNewServer" [attr.data-allow]="allowNewServer" [innerText]="allowNewServerButtonText" [disabled]="!allowNewServer"
+  (click)="onCreateServer()"></button>
+
+<br />
+<p>Server creation status:
+  <b class="highlight"> {{ serverCreationStatus }}</b>
+</p>
+
+<!-- Echo the server name using property binding-->
+<p>2 Way binding. Echo the server name as we type:
+  <b class="highlight">{{ serverName }}</b>
 </p>
