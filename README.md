@@ -180,3 +180,32 @@ Instead of creating manual components we will create one using the CLI commands.
 <!-- Add the new created component -->
 <app-servers></app-servers>
 ```
+***
+### Step 04 - Adding bootstrap CSS
+- install bootstrap `npm i bootstrap`
+- Add the bootstrap css path to the `angular.json`
+```js
+"styles": [
+    "src/styles.scss",
+    "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+```
+- Add html code to verify that the css is loaded **[`src/app/app.module.html`](src/app/app.module.html)**
+```html
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">
+        {{ title }}
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <app-servers></app-servers>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-4"></div>
+</div>
+```
