@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +19,8 @@ import { ServersComponent } from './servers/servers.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    // forms module should be in imports not in declarations
+    FormsModule
   ],
   providers: [],
   // List all the components which should be available when the applciation 

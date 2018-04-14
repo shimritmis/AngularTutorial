@@ -366,3 +366,28 @@ export class ServersComponent implements OnInit {
   color: black;
 }
 ```
+***
+### Step 08 - 2 way binding [ngModel]
+In the previous step we have demonstrated 2 way binding. **Lets dive into it now.**
+
+- 2Way binding allow us to display initial values of the property, to update it and more.
+- The syntax is combination of `[] && ()` => `[(ngModel)]`
+- In this part we will use html forms so we need to add the appropriate Angular Module 
+- Add the import `FormsModule` inside the [`src/app/app.module.ts`](src/app/app.module.ts) 
+- **!Note: `FormsModule` should be in `imports` not in `declarations`**
+  ```js
+  import { FormsModule } from '@angular/forms';
+  ...
+  imports: [
+    BrowserModule,
+    // forms module should be in imports not in declarations
+    FormsModule
+  ],
+  ```
+- Declare the `ngModel` inside our [src/app/servers/servers.component.html](src/app/servers/servers.component.html)
+```html
+<input type="text"	
+       class="form-control"
+       (input)="onUpdateServerName($event)">
+```
+- Test the code and see what is happening
