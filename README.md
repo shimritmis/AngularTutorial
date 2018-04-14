@@ -391,3 +391,70 @@ In the previous step we have demonstrated 2 way binding. **Lets dive into it now
        (input)="onUpdateServerName($event)">
 ```
 - Test the code and see what is happening
+***
+### Step 09 - Directives
+- Directives are html extensions (DOM) which are being created from templates (usually but not always).
+- Directives are usually attributes
+- The syntax is `*` for example : `*ngIf=...`
+    #### ngIf (Structural directive)
+    - `ngIf` is used to conditionally display content.
+    - The simple way is to use it as attribute
+    - We can also us it with `local reference` for `if else` syntax (`ng-template` within the `*ngIf`)
+
+    #### ngStyle / ngClass
+    - `ngStyle` is used to conditionally add style to an element.
+    - `ngClass` is used to conditionally add css class to an element.
+- Update the scss file
+```css
+.allowNewServer[data-allow="true"],
+.allowNewServerAllowed {
+    background: green;
+}
+
+.allowNewServer[data-allow="false"],
+.allowNewServerNotAllowed {
+    background: red;
+}
+```    
+- Update the template [`src/app/servers/servers.component.html`](src/app/servers/servers.component.html)
+```html
+<input type="text"
+       class="form-control"
+       [(ngModel)]="serverName">
+<!-- The button for creating new server -->
+<button class="btn allowNewServer"
+        [ngClass]="{ 
+          'allowNewServerAllowed': allowNewServer === true, 
+          'allowNewServerNotAllowed': allowNewServer === false 
+        }"
+        [innerText]="allowNewServerButtonText"
+        [disabled]="!allowNewServer"
+        (click)="onCreateServer()"></button>
+
+<br/>
+<!-- Using ngIf with local reference (if else syntax)-->
+<p *ngIf="serverCreated; else noServer">Server creation status:
+  <b class="highlight"> {{ serverCreationStatus }}</b>
+</p>
+<!-- The template which will be used if ngIf is false -->
+<ng-template #noServer>
+  No new server yet ...
+</ng-template>
+<!-- Echo the server name using property binding-->
+<p>2 Way binding. Echo the server name as we type:
+  <b class="highlight">{{ serverName }}</b>
+</p>
+```
+- Add the [`src/app/servers/servers.component.ts`](src/app/servers/servers.component.ts) code
+```js
+...
+// Flag to mark if we have created a server or not
+serverCreated = false;
+...
+onCreateServer() {
+  this.serverCreationStatus = "Server was created [" + this.serverName + "]";
+  this.serverCreated = true;
+}
+...  
+```
+- Within the GUI create server and view the changes

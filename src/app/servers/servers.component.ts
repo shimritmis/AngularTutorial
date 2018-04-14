@@ -17,7 +17,10 @@ export class ServersComponent implements OnInit {
   serverCreationStatus = "No server was created";
 
   // the server name which the user will input
-  serverName = "-N/A-";
+  serverName = "";
+
+  // Flag to mark if we have created a server or not
+  serverCreated = false;
 
   constructor() {
 
@@ -35,6 +38,7 @@ export class ServersComponent implements OnInit {
   // Naming convention: 'On...' for event
   onCreateServer() {
     this.serverCreationStatus = "Server was created [" + this.serverName + "]";
+    this.serverCreated = true;
   }
 
   // the event is passed from the html when we click on the button
