@@ -69,5 +69,8 @@ At this step we update property using timer and the changes will be reflacted in
 - The syntax for property binding is `[<html propery>]=<angular property>`
 - To boind attribute like dataset use the `[attr.<attribute name>]` => `[attr.data-allow]="allowNewServer"`
 
-
+### Step 07 - Event Binding
+- The synatx for adding an event bunding is using `(<event name>)="<event handler>"`
+- Edit `servers.component.ts` and add the required variables and methods
+- Update the component html and add the required code. In this step we demonstrated the prevoius bindings as well.
 

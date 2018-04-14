@@ -9,3 +9,9 @@
 .allowNewServer[data-allow="false"] {
     background: red;
 }
+
+.highlight {
+    padding: 0 3px;
+    background: yellow;
+    color: black;
+}
