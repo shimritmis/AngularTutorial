@@ -10,7 +10,7 @@ To see what was changed between each steps.
 The following code was executed to create this angular project
 * Install all the requirements
 
-    `npn install -g @angular/cli`
+    `npm install -g @angular/cli`
 
 * Create the project skelton
 
