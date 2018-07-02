@@ -107,6 +107,8 @@ Create multiple components and add communication between them
 - Copy the initial html code from the `cockpit.component.html` to your componenet
 - Copy the content of the `server-element.component.html` into your component
 - Copy the content of the `app.component.ts`
+- Copy the content of the `app.component.html`
+
 #### At this point the project should be broken and you will see the following message
 `Property 'serverElements' does not exist on type 'CockpitComponent'.`
 - To fix it for now we will comment out the code so we can continue.
