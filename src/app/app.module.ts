@@ -13,6 +13,7 @@ import { ServersManagerComponent } from './servers-manager/servers-manager.compo
 
 // Directives
 import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { TextHighlightDirective } from './directives/text-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
     ServersComponent,
     ServerElementComponent,
     ServersManagerComponent,
-    HighlightDirective
+    HighlightDirective,
+    TextHighlightDirective
   ],
   imports: [
     BrowserModule,

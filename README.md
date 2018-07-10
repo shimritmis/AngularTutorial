@@ -753,3 +753,46 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
     ...
     HighlightDirective
 ```    
+***
+### Step 13 - Directive Render
+- Docs: [`https://angular.io/api/core/Renderer2`](https://angular.io/api/core/Renderer2)
+- Create a new directive and this time with the CLI command
+```js
+ng g d directives/text-highlight --skipTests
+```
+- Create new file [`src/app/directives/text-highlight.directive.ts`](src/app/directives/text-highlight.directive.ts)
+- Add the required code to the `directives/text-highlight.directive.ts`
+```js
+// We need to import the requirements for the Renderer
+// Make sure to import Renderer2
+import { Directive, OnInit, Renderer2, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appTextHighlight]'
+})
+export class TextHighlightDirective implements OnInit {
+
+  // In this directive we will be using renderer and the element as before
+  constructor(
+    private elRef: ElementRef,
+    private renderer: Renderer2
+  ) { }
+
+  ngOnInit() {
+    // In stead of using the native element we wil use the renderer
+    // The setStyle method get the required element and the style
+    this.renderer.setStyle(
+      this.elRef.nativeElement, // Which element we want to add style to
+      'font-size', // The css property which we wish to assign
+      '24px' // the value of the css property
+      /** Optional 4th param for flex css */
+    )
+  }
+}
+```
+- Update [`src/app/app.module.ts`](src/app/app.module.ts) and register the module
+- Add the directive to the main template
+```html
+<p appTextHighlight>This is our appTextHighlight directive</p>
+```
+- Add the directive to the template and verify that its working
