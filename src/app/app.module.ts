@@ -10,6 +10,9 @@ import { ServersComponent } from './servers/servers.component';
 import { CockpitComponent } from './cockpit/cockpit.component';
 import { ServerElementComponent } from './server-element/server-element.component';
 
+// Directives
+import { HighlightDirective } from './directives/highlight/highlight.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,10 @@ import { ServerElementComponent } from './server-element/server-element.componen
     ServerComponent,
     ServersComponent,
     CockpitComponent,
-    ServerElementComponent
+    ServerElementComponent,
+
+    // Add the directives
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
