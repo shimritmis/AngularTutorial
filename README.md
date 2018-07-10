@@ -172,3 +172,10 @@ Create multiple components and add communication between them
 * Add the required code to the `directives/text-highlight.directive.ts`
 * Add the directive to the template and verify that its working
 
+### step15 - Directive Events
+* In this step we will interact with the directive
+* In order to do it we need to add `HostListener` - which will be used for our mouse events
+* Add the `HostListener` to the directive from prevoius step
+  ```js 
+    @HostListener( <enent_name>) <function_name> (<Event data>) 
+  ```
