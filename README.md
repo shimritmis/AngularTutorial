@@ -126,3 +126,37 @@ Create multiple components and add communication between them
 - Add the 2 custom event data in `cockpit.component.ts`. Make sure to expose them with `EventEmitter` & `@Output()`  
   Dont forget to add the required import as well
 - Inside `cockpit.component.ts` fire (emit) the events
+
+# Directives
+***
+### 13 - Attriute directives
+* First lets start with attribute directives
+* Create a new folder `src/app/directives/highlight`
+* Create the directive file `src/app/directives/highlight/highlight.directive.ts`
+  ```js
+  import { Directive, ElementRef, OnInit } from '@angular/core';
+
+  @Directive({
+    selector: '[appBasicHighlight]'
+  })
+
+  export class BasicHighlightDirective implements OnInit {
+    constructor(private elementRef: ElementRef) {
+    }
+
+    ngOnInit() {
+      this.elementRef.nativeElement.style.backgroundColor = 'green';
+    }
+  }
+
+  ```
+* Register the directive in the app module 
+* Add the attribute directive to the app template
+  ```html
+  <div class="container">
+    ...
+    <p appHighlight>This is our appHighlight directive</p>
+    ...
+  </div> 
+  ```
+
