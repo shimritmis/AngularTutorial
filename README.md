@@ -697,3 +697,59 @@ export class ServersManagerComponent implements OnInit {
   }
 }
 ```
+***
+### Step 12 - Attribute directives
+Lets start with **attribute** directives
+- Create a new folder [`src/app/directives/highlight`](`src/app/directives/highlight`)
+- Create the directive file [`src/app/directives/highlight/highlight.directive.ts`](src/app/directives/highlight/highlight.directive.ts)
+```js
+import { Directive, ElementRef, OnInit } from '@angular/core';
+
+// Set the attribute directive
+// The syntax is [<attribute name>]. 
+// When the html will contain the <attribute name> without the brackets
+// This directive will be invoked.
+@Directive({
+    selector: '[appHighlight]'
+    // Directive does not have a template !!!!
+})
+
+/**
+ * We need to implement the OnInit
+ */
+export class HighlightDirective implements OnInit {
+
+    // Get the element which the directive will be applied to
+    // The type is ``ElementRef` and will be references internally as `elementRef`
+    // 
+    // This is called -- injection --
+    // The injection will pass those variables every time the directive will be created
+    constructor(private elementRef: ElementRef) {
+        // The private elementRef will create a property in this class with the given name
+        // so we will be able to access it inside the class
+    }
+
+    ngOnInit() {
+
+        // The logic of the directive. 
+        // This directive will change the backgroundColor
+
+        // this.elementRef = The local variable
+        // nativeElement = The html element
+        this.elementRef.nativeElement.style.backgroundColor = 'green';
+    }
+}
+```
+- Add the directive to the main template [`src/app/app.component.html`](src/app/app.component.html)
+```html
+<p appHighlight>This is our appHighlight directive</p>
+```
+- Add the directive under the `@NgModule` in [`src/app/app.module.ts`](src/app/app.module.ts)
+```js
+import { HighlightDirective } from './directives/highlight/highlight.directive';
+...
+@NgModule({
+  declarations: [
+    ...
+    HighlightDirective
+```    

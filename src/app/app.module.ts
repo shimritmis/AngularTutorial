@@ -11,6 +11,9 @@ import { ServersComponent } from './servers/servers.component';
 import { ServerElementComponent } from './server-element/server-element.component';
 import { ServersManagerComponent } from './servers-manager/servers-manager.component';
 
+// Directives
+import { HighlightDirective } from './directives/highlight/highlight.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +22,8 @@ import { ServersManagerComponent } from './servers-manager/servers-manager.compo
     ServerComponent,
     ServersComponent,
     ServerElementComponent,
-    ServersManagerComponent
+    ServersManagerComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
