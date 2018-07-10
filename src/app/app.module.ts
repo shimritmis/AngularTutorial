@@ -12,6 +12,7 @@ import { ServerElementComponent } from './server-element/server-element.componen
 
 // Directives
 import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { TextHighlightDirective } from './directives/text-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
     ServerElementComponent,
 
     // Add the directives
-    HighlightDirective
+    HighlightDirective,
+
+    TextHighlightDirective
   ],
   imports: [
     BrowserModule,

@@ -162,3 +162,15 @@ Create multiple components and add communication between them
   </div> 
   ```
 
+### step14 - Directive Render
+* Lets create a new direcive and this time with the CLI command
+  ```
+  $ ng g d directives/text-highlight --spec false
+
+  # We should now see the following output
+  create src/app/directives/text-highlight.directive.ts
+  update src/app/app.module.ts
+  ```
+* Add the required code to the `directives/text-highlight.directive.ts`
+* Add the directive to the template and verify that its working
+
