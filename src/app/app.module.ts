@@ -13,6 +13,7 @@ import { ServerElementComponent } from './server-element/server-element.componen
 // Directives
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { TextHighlightDirective } from './directives/text-highlight.directive';
+import { UnlessDirective } from './unless.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { TextHighlightDirective } from './directives/text-highlight.directive';
     // Add the directives
     HighlightDirective,
 
-    TextHighlightDirective
+    TextHighlightDirective,
+
+    UnlessDirective
   ],
   imports: [
     BrowserModule,
