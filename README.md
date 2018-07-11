@@ -248,5 +248,9 @@ Create multiple components and add communication between them
   }
   ```  
 * Add the required code to the `app.component.html`
+  ```html
+      <div *appUnless="true">This is the content when *appUnless="true" </div>
+      <div *appUnless="false">This is the content when *appUnless="false" </div>
+  ```
 * Practice: 
   * Add property to the app component to control if the unless is visible or not
