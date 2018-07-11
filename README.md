@@ -899,3 +899,75 @@ ngOnInit() {
   this.color = this.defaultColor;
 ...
 ```
+***
+### Step 17 - Structural Directives
+- In the previous steps we used **attribute** directives (`ngIf`, `ngFor` etc), now we will add structural directives.
+- Lets create a new directive using the CLI which will behave opposite to the `ng-if` directive and name it unless 
+```
+ng g d unless --skipTests=true
+```
+- In this directive we need to **get the condition** as input from the element so we need to add the `@Input` decorator for the value. 
+- To do so we will need to use `TemplateRef` && `ViewContainerRef`
+- We also need to **listen for changes** we will add the `set` keyword next to the `@Input`<br/>
+!!! Important: **The name of the property must be the same as the directive name**
+- [`src/app/unless.directive.ts`](src/app/unless.directive.ts)
+```js
+  @Input() set appUnless(condition: boolean) {}
+```
+- Add the contractor properties (template & view)
+  ```js
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private vcRef: ViewContainerRef
+  ) { }
+  ```
+- Now update the unless `@Input()` logic
+  ```js
+  @Input() set appUnless(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+  ```  
+- Full code [`src/app/unless.directive.ts`](src/app/unless.directive.ts)  
+```js
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appUnless]'
+})
+export class UnlessDirective {
+
+  visible: boolean = true;
+
+  // In this case its a property which will be executed whenever this property is 
+  // changes even if the value is outside of this directive.
+  @Input() set appUnless(condition: boolean) {
+    // Check the condition
+    if (!condition) {
+      // The unless directive should display the content if the condition is false
+      // In order to display the content we creating a view and injecting the template
+      // into this view
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      // Remove the content from the view
+      this.vcRef.clear();
+    }
+  }
+
+  // This directive will be used with ng-template since its a structural template
+  // so we will grab the template and the container where to display it
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private vcRef: ViewContainerRef
+  ) { }
+
+}
+```
+- Add the required code to the [`src/app/app.component.html`](src/app/app.component.html)
+```html
+    <div *appUnless="true">This is the content when *appUnless="true" </div>
+    <div *appUnless="false">This is the content when *appUnless="false" </div>
+```
