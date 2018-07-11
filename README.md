@@ -194,3 +194,25 @@ Create multiple components and add communication between them
       this.color = 'black';
     }
   ```
+### step17 - Directive Properies (readProperty)
+* Instead of having the colors hard code we wish to read them from the element
+* Fisrt add the `Input` decorator
+  ```js
+  // Add the input fields
+  @Input() defaultBgColor: string;
+  @Input() hoverBgColor: string;
+
+  // Initialize values
+   
+  ```
+* Add the required attribute colors in `ngOninit`
+  ```js
+    ngOnInit() {
+
+    // Set the defaults ...
+    this.bgColor = this.defaultBgColor;
+    this.color = this.defaultColor;
+    
+    ...
+
+  ```

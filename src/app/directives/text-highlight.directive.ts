@@ -6,7 +6,8 @@ import {
   Renderer2,
   ElementRef,
   HostListener,
-  HostBinding
+  HostBinding,
+  Input
 } from '@angular/core';
 
 @Directive({
@@ -14,7 +15,15 @@ import {
 })
 export class TextHighlightDirective implements OnInit {
 
+  // The 2 inputs which we will read from the element
+  @Input() defaultBgColor: string = 'transparent';
+  @Input() hoverBgColor: string = '#1e1e1e';
+
+  defaultColor: string = "black";
+  hoverColor: string = "#4EC9B0";
+
   // Set the proerty we wish to bind, in our case it will be the backgroundColor of the style attribute
+  // Add the default color
   @HostBinding('style.backgroundColor') bgColor: string;
 
   // Add anothe color binding
@@ -28,6 +37,11 @@ export class TextHighlightDirective implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    // Set the defaults ...
+    this.bgColor = this.defaultBgColor;
+    this.color = this.defaultColor;
+
     // In stead of using the native element we wil use the renderer
     // The setStyle method get the required aleme
     this.renderer.setStyle(
@@ -45,13 +59,13 @@ export class TextHighlightDirective implements OnInit {
    */
   @HostListener('mouseenter') mouseover(event: Event) {
     // Instead of the renderer we will now have a direct access to the style background
-    this.bgColor = '#1e1e1e';
-    this.color = '#4EC9B0';
+    this.bgColor = this.hoverBgColor;
+    this.color = this.hoverColor;
   }
 
   @HostListener('mouseleave') mouseleave(event: Event) {
-    this.bgColor = 'transparent';
-    this.color = 'black';
+    this.bgColor = this.defaultBgColor;
+    this.color = this.defaultColor;
   }
 
 
