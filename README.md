@@ -181,3 +181,18 @@ Create multiple components and add communication between them
   ```js 
     @HostListener( <enent_name>) <function_name> (<Event data>) 
   ```
+### step16 - Directive Properies (HostBinding)
+* In this atep we will be chnaging one of the nodes property like style, class etc.
+* First of all add `HostBinding` to the directive
+* Add the property we wish to bind to 
+  ```js
+  # In our case we wish to bind the style.backgroundColor property 
+  @HostBinding('style.backgroundColor') bgColor: string;
+  ```
+* Update the code in the `HostListener`
+  ```js
+    @HostListener('mouseleave') mouseleave(event: Event) {
+      this.bgColor = 'transparent';
+      this.color = 'black';
+    }
+  ```
