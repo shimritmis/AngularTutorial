@@ -882,3 +882,20 @@ export class TextHighlightDirective implements OnInit {
   this.color = 'black';
 }
 ```
+***
+### Step 16 - Directive Properties (HostBinding)
+Instead of having the colors **hard coded** we wish to read them **from the element** (will be set in the template as attribute)
+- Add the `Input` decorator for the properties in [`src/app/directives/text-highlight.directive.ts`](src/app/directives/text-highlight.directive.ts)
+```js
+// Add the input fields
+@Input() defaultBgColor: string;
+@Input() hoverBgColor: string;
+```
+- Set the default colors in `ngOnInit`
+```js
+ngOnInit() {
+  // Set the defaults ...
+  this.bgColor = this.defaultBgColor;
+  this.color = this.defaultColor;
+...
+```
