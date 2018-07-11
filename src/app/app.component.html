@@ -1,5 +1,8 @@
 <div class="container">
 
+    <div *appUnless="true">This is the content when *appUnless="true" </div>
+    <div *appUnless="false">This is the content when *appUnless="false" </div>
+
     <p appHighlight>This is our appHighlight directive</p>
     <p appTextHighlight
        [defaultBgColor]="silver">This is our appTextHighlight directive</p>
