@@ -218,3 +218,35 @@ Create multiple components and add communication between them
     ...
 
   ```
+### step18 - Structural Directives
+* In the prevoius steps we used attribute directives, now we will add structural directives
+* Lets create a new directive using the CLI which wil be opposite to the ng-if
+  ```
+    ng g d unless --spec false
+  ```
+* We need to get the condition as input from the element so we need to add the `@Input`
+* Since we also need to listen to changes we will add the `set` keywork to the `@Input`
+  **The name of the property must be the same as the directive name**
+  ```js
+  @Input() set appUnless(condition: boolean) {}
+  ```
+* Add the contractor properties (template & view)
+  ```js
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private vcRef: ViewContainerRef
+  ) { }
+  ```
+* Now update the unless `@Input()` logic
+  ```js
+  @Input() set appUnless(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+  ```  
+* Add the required code to the `app.component.html`
+* Practice: 
+  * Add property to the app component to control if the unless is visible or not
