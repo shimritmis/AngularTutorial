@@ -254,3 +254,55 @@ Create multiple components and add communication between them
   ```
 * Practice: 
   * Add property to the app component to control if the unless is visible or not
+
+# Routing
+***
+### step 19 - Routing
+
+* Extract the attached zip to new folder - This will be our sample application for this part
+* We have multiple components loaded in the app component.
+* We have navugation menu in the app which will be used to upload and display diffrent part of the app
+  ``` html
+  <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Home</a></li>
+      <li role="presentation"><a href="#">Servers</a></li>
+      <li role="presentation"><a href="#">Users</a></li>
+  </ul>
+  ```      
+* Add the routes to the app module.  
+  The routs is a specific structure. `{ path : ... }`
+```js
+import { Routes } from '@angular/router';
+
+...
+
+const appRoutes: Routes = [
+  {
+    path: '<path to this route >',
+    component: <Component for this route>
+  }
+];
+
+// In our sample application it will look like:
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'servers', component: ServersComponent }
+];
+...
+
+```
+
+* Register the routes. Registering routes is done via the `RouteModules`
+  * Add new import
+  * Use the `forRoot` which add the routes to the angular application
+  ```js
+  import { Routes, RouterModule } from '@angular/router';
+  ...
+
+   imports: [
+    ...
+    RouterModule.forRoot(appRoutes)
+    ...
+  ],
+  ```
