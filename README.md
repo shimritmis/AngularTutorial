@@ -304,3 +304,31 @@ const appRoutes: Routes = [
     ...
   ],
   ```
+
+### step 20 - router-outlet
+* In this step we will set up the routering to display the content
+* Edit the `./src/app/app.component.html` and rplace the components with the `<router-outlet></router-outlet>` directive.
+  - This tells angular where to display the content of the route
+```html
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+```
+* Open the browser and add the check to see if the routes are working as expected
+  * http://localhost:4200/users
+  * http://localhost:4200/servers
+
+* Adding navigation - Use the nav links
+  * Remove the `href="#"` from the nav items
+  * Add the `router-link` directive with the appropiate link (The link is on the `<a>`)
+  * Set the `routerLinkActive / routerLinkActiveOptions"` the current tab to mark it as active (`<li>`)
+```html
+  <li ...
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="/">Home</a>
+  </li>
+
+```  
