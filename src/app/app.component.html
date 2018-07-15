@@ -1,23 +1,26 @@
 <div class="container">
-
-    <div *appUnless="true">This is the content when *appUnless="true" </div>
-    <div *appUnless="false">This is the content when *appUnless="false" </div>
-
-    <p appHighlight>This is our appHighlight directive</p>
-    <p appTextHighlight
-       [defaultBgColor]="silver">This is our appTextHighlight directive</p>
-
-    <!-- Bind custom event when we creating server -->
-    <app-cockpit (serverCreated)="onServerAdded( $event )"
-                 (blueprintCreated)="onServerBlueprintAdded( $event )">
-    </app-cockpit>
-    <hr>
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- We wish to loop and access the [element]="serverElement" -->
-            <app-server-element *ngFor="let serverElement of serverElements"
-                                [element]="serverElement">
-            </app-server-element>
-        </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Servers</a></li>
+        <li role="presentation"><a href="#">Users</a></li>
+      </ul>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <app-home></app-home>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <app-users></app-users>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <app-servers></app-servers>
+    </div>
+  </div>
 </div>
