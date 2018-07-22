@@ -604,3 +604,17 @@ export class AccountComponent {
 }
 ```
 
+### step 24 - Injecting Services into Services
+- Lets add a single service instance for the entire app. 
+- The service will be a single instance and the content can be shared between all the components
+- Update the `AppModule` and add the services to the providers array
+```js
+
+@NgModule({
+...
+  providers: [AccountsService],
+...  
+})
+
+export class AppModule { }
+```
