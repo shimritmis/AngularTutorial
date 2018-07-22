@@ -334,3 +334,71 @@ const appRoutes: Routes = [
   </li>
 
 ```  
+
+### step 21 - Routing from TypeScript
+* Add some button to `./src/app/home/home.component.html`
+```html
+<button class="btn btn-primary"
+        (click)="onLoadServers()">Load Servers</button>
+```
+* Add the following:
+  * import
+  * constructor declartion 
+  * required code (click handler = `onLoadServers` ) in the `./src/app/home/home.component.ts`
+```js
+export class HomeComponent implements OnInit {
+  // Add the required router variable
+  constructor(private router: Router) { }
+
+  // The click handler
+  onLoadServers() {
+    this.router.navigate(['servers']);
+    
+  }
+
+}
+```
+
+#### Routing with parameters
+* Add paramters to the url in the `./src/app/app.module.ts` using the `<route>:<param>`
+  * This will cause the `/users` to return error
+```js
+const appRoutes: Routes = [
+  ...
+  { path: 'users/:user_id', component: UsersComponent },
+  ...
+];
+```
+* Add the required imports and code and `ActiveRoute` to the `./src/app/users/user/user.component.ts`
+* Read the parameters from the router using the `this.route.snapshot.params['<param>']`
+```js
+export class UserComponent implements OnInit {
+  user: { id: number, name: string };
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['user_id'],
+      name: this.route.snapshot.params['user_name'],
+    }
+  }
+
+}
+```
+
+* Update the template `./src/app/users/user/user.component.html` to display the route values
+```js
+<p>User with ID
+    <b>{{ user.id }}</b> loaded.</p>
+<p>User name is
+    <b>{{ user.name }}</b>
+</p>
+```
+
+* Add new link which will pass parameters to the desired router
+  * Edit the `./src/app/users/user/user.component.html`
+  * Add the following synatx - (Directive) -> `[routerLink]="[ <params> ]"`
+``` html
+<a [routerLink]="['/users','1','Moshe !!!!']">Load user</a>
+```
