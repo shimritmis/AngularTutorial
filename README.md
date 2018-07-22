@@ -492,3 +492,115 @@ export class NewAccountComponent {
 
 ```
 - Verify that the code is working and that the `console.log` is printed out from the service.
+
+
+### step 23 - Data Services
+- Data services are used to store data 
+- Lets create service for storing the AccountData
+- Create new service file `services-start/src/app/accounts.service.ts`
+- Move the code from the `AppComponent` to the new service file
+```js
+/**
+ * This service will store our accounts data
+ */
+export class AccountsService {
+
+    // Remove the code from the app componenets and paste it here
+    accounts = [
+        {name: 'Master Account',status: 'active'},
+        {name: 'Testaccount',status: 'inactive'},
+        {name: 'Hidden Account',status: 'unknown'}
+    ];
+
+    addAcount(name: string, status: string) {
+        this.accounts.push({ name: name, status: status });
+    }
+
+    updateStatus(id: number, newStatus: string) {
+        this.accounts[id].status = newStatus;
+    }
+}
+```
+- Since we have an accounts in the `services-start/src/app/app.component.html` we need to read them from the service
+```html
+<app-account
+        *ngFor="let acc of accounts; let i = index"
+        [account]="acc"
+        [id]="i"
+        (statusChanged)="onStatusChanged($event)"></app-account>
+```
+- Add the service to the `services-start/src/app/app.component.ts`
+  - Import
+  - Provider
+  - Constructr
+- Initialization should be done inside the `OnInit`  
+```js
+// app.component.ts
+
+import { AccountsService } from './accounts.service';
+...
+@Component({
+  ...
+  providers: [AccountsService]
+})
+export class AppComponent implements OnInit {
+
+  // Add the accounts array. The content will be loaded from the service
+  accounts: { name: string, status: string }[] = [];
+
+  // Inject the service
+  constructor(private accountsService: AccountsService) { }
+
+  // initialize the accounts data
+  ngOnInit() {
+    // Get the accounts from the service
+    this.accounts = this.accountsService.accounts;
+  }
+
+}
+
+```
+- Update the `NewAccountComponent`
+  - Remove the `EventEmitter` since its now part of the service
+  - Add imports & update the code
+```js
+
+// Add the service imprt
+import { LoggingService } from '../logging.service';
+import { AccountsService } from '../accounts.service';
+
+export class NewAccountComponent {
+  constructor(
+    private logger: LoggingService,
+    private accountsService: AccountsService) { }
+
+  onCreateAccount(accountName: string, accountStatus: string) {
+    this.accountsService.addAcount(accountName, accountStatus);
+    this.logger.logStatusChange('New status: ' + accountStatus);
+  }
+}
+```
+- Update the `AccountComponent` as well and remove the unused code
+```js
+import { LoggingService } from '../logging.service';
+import { AccountsService } from '../accounts.service';
+
+export class AccountComponent {
+  @Input() account: { name: string, status: string };
+  @Input() id: number;
+
+  // Add the Constructor with the Service injection
+  // Make sure to specify the required type
+  constructor(
+    private logger: LoggingService,
+    private accountsService: AccountsService
+  ) {
+
+  }
+  onSetTo(status: string) {
+    this.accountsService.updateStatus(this.id, status);
+    this.logger.logStatusChange('New status: ' + status);
+  }
+}
+```
+
