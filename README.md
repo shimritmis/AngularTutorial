@@ -854,3 +854,31 @@ export class TextHighlightDirective implements OnInit {
 }
 ```
 - Move with the mouse over the directive and test it
+***
+### Step 15 - Directive Properties (HostBinding)
+- In this step we will be changing one of the nodes property like `style`, `class` etc.
+- We will need to add `@HostBinding` decorator to the property we wish to update inside [`src/app/directives/text-highlight.directive.ts`](src/app/directives/text-highlight.directive.ts)
+```js
+// Set the property we wish to bind, in our case it will be the backgroundColor of the style attribute
+@HostBinding('style.backgroundColor') bgColor: string;
+
+// Add another color binding
+@HostBinding('style.color') color: string;
+```
+- Update the code in the `@HostListener`
+```js
+  /**
+ * Add the mouse event listeners to the directive
+ * Each event gets it own Host listener
+ */
+@HostListener('mouseenter') mouseover(event: Event) {
+  // Instead of the renderer we will now have a direct access to the style background
+  this.bgColor = '#1e1e1e';
+  this.color = '#4EC9B0';
+}
+
+@HostListener('mouseleave') mouseleave(event: Event) {
+  this.bgColor = 'transparent';
+  this.color = 'black';
+}
+```
