@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 // Import our new Server component
 import { ServerComponent } from './server/server.component';
 import { ServersComponent } from './servers/servers.component';
+import { ServerElementComponent } from './server-element/server-element.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ServersComponent } from './servers/servers.component';
     // We need to register out new server component so we need to 
     // "tell" Angular that we have new modal which we will wish to use
     ServerComponent,
-    ServersComponent
+    ServersComponent,
+    ServerElementComponent
   ],
   imports: [
     BrowserModule,
