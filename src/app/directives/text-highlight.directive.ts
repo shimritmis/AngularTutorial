@@ -1,11 +1,17 @@
 // We need to import the requirements for the Renderer
 // Make sure to import Renderer2
-import { Directive, OnInit, Renderer2, ElementRef, HostListener } from '@angular/core';
+import { Directive, OnInit, Renderer2, ElementRef, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[appTextHighlight]'
 })
 export class TextHighlightDirective implements OnInit {
+
+  // Set the property we wish to bind, in our case it will be the backgroundColor of the style attribute
+  @HostBinding('style.backgroundColor') bgColor: string;
+
+  // Add another color binding
+  @HostBinding('style.color') color: string;
 
   // In this directive we will be using renderer and the element as before
   constructor(
@@ -25,18 +31,17 @@ export class TextHighlightDirective implements OnInit {
   }
 
   /**
-   * Add the mouse event listeners to the directive
-   * Each event gets it own Host listener
-   */
+ * Add the mouse event listeners to the directive
+ * Each event gets it own Host listener
+ */
   @HostListener('mouseenter') mouseover(event: Event) {
-    // as before we will use the renderer
-    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'navy');
-    this.renderer.setStyle(this.elRef.nativeElement, 'color', 'white');
+    // Instead of the renderer we will now have a direct access to the style background
+    this.bgColor = '#1e1e1e';
+    this.color = '#4EC9B0';
   }
 
   @HostListener('mouseleave') mouseleave(event: Event) {
-    // as before we will use the renderer
-    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-    this.renderer.setStyle(this.elRef.nativeElement, 'color', 'black');
+    this.bgColor = 'transparent';
+    this.color = 'black';
   }
 }
