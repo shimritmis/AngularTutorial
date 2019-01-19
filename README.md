@@ -458,3 +458,78 @@ onCreateServer() {
 ...  
 ```
 - Within the GUI create server and view the changes
+***
+### Step 10 - Multiple components
+During this phase will create multiple components and add communication between them
+
+- For this step we will need to get familiar with `ngFor` Directive.  
+  read about it before starting this step. [https://angular.io/api/common/NgForOf](https://angular.io/api/common/NgForOf)
+
+- Create the `server-element` component without testing specs `ng g c server-element --skipTests=true`
+- Update [`src/app/server-element/server-element.component.html`](src/app/server-element/server-element.component.html) with the following code:
+```html
+<div class="card card-default m-1">
+  <div class="card-header">{{ serverElement.name }}</div>
+  <div class="card-body">
+    <p>
+      <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
+      <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
+    </p>
+  </div>
+</div>
+
+```
+- Update [`src/app/app.component.html`](src/app/app.component.html)
+ - `serverElement` will be passed to the `app-server-element`
+```html
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">
+        {{ title }}
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <h5 class="text-center">List of servers {{serverElements.length}}</h5>
+          <div class="row justify-content-center">
+            <!-- this line "does" the trick, here we process the list of elements-->
+            <div *ngFor="let serverElement of serverElements">
+              <app-server-element [serverElement]="serverElement"></app-server-element>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+- In the [`src/app/app.component.ts`](src/app/app.component.ts) add the list of servers
+```js
+export class AppComponent {
+  // Set the title which will be passed to the template
+  title = 'Angular Tutorial';
+
+  // List of servers
+  serverElements = [{
+    type: 'server',
+    name: 'Test Server 1',
+    content: 'Test Server 1'
+  },
+  {
+    type: 'blueprint',
+    name: 'Test Server 2',
+    content: 'Test Server 2'
+  }];
+}
+```
+- Add the binding to the `server-element` in [`src/app/server-element/server-element.component.ts`](src/app/server-element/server-element.component.ts)
+```js
+export class ServerElementComponent implements OnInit {
+
+  // Declare the input element
+  // In the next step we will explain what is it
+  @Input() serverElement: Object;
+
+}
+```
+
