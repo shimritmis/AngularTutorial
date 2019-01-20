@@ -37,3 +37,84 @@ Would you like to add Angular routing? (y/N)
   <a class="navbar-brand" href="#">Users</a>
 </nav>
 ```
+***
+### Step 02 - Build the required components
+
+#### Generate components
+- Build the following components
+```sh
+# Using the git bash we can do it with one line,
+# otherwise create them separately
+for i in home servers users; do ng g c "${i}" --skipTests=true; done
+
+### Manually creation
+ng g c home --skipTests=true
+ng g c users --skipTests=true
+ng g c servers --skipTests=true
+```
+
+#### Create a Service
+- We will also use Service. Service is similar to global object which allow to store shared data.
+- Generate the service
+```sh
+ng g service servers --skipTests=true
+```
+- Update service file in: [`src/app/servers.service.ts`](src/app/servers.service.ts)
+```js
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+/**
+ * This is the Servers service, it will store the servers list
+ */
+export class ServersService {
+  // List of servers
+  private servers = [
+    { id: 1, name: 'Production server', status: 'online' },
+    { id: 2, name: 'Test server', status: 'offline' },
+    { id: 3, name: 'Dev server', status: 'offline' }
+  ];
+
+  // Get the list of servers
+  getServers() {
+    return this.servers;
+  }
+
+  // Get server by Id
+  getServer(id: number) {
+    const server = this.servers.find((s) => {
+      return s.id === id;
+    });
+    return server;
+  }
+
+  // Update server data
+  updateServer(id: number, serverInfo: { name: string, status: string }) {
+    const server = this.servers.find((s) => {
+      return s.id === id;
+    });
+    if (server) {
+      server.name = serverInfo.name;
+      server.status = serverInfo.status;
+    }
+  }
+}
+```
+- We must registered the `Service` as the provider at the root level so that it can be injected anywhere in the app. Register the service in the [`src/app/app.module.ts`](src/app/app.module.ts) 
+```js
+import { ServersService } from './servers.service';
+...
+providers: [ServersService],
+```
+- Update [`src/app/app.component.html`](src/app/app.component.html) to use the router
+```html
+<nav class="navbar navbar-dark bg-dark justify-content-center">
+  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="/servers">Servers</a>
+  <a class="navbar-brand" href="/users">Users</a>
+</nav>
+```
+**At this point using the routes will do a full page reload**
+
