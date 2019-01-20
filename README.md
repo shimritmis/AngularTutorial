@@ -964,3 +964,294 @@ export class UnlessDirective {
     <div *appUnless="true">This is the content when *appUnless="true" </div>
     <div *appUnless="false">This is the content when *appUnless="false" </div>
 ```
+***
+# Part 2 - Routing , Services & more.
+
+### Step 18 - Routing
+- At this step we will add routing to our project
+- We will create several components and will navigate between them.
+
+#### Create the required components
+```js
+ng g c home --skipTests=true
+ng g c users --skipTests=true
+ng g c users/user --skipTests=true
+ng g c servers/server --skipTests=true
+ng g c servers/server-edit --skipTests=true
+```
+- We will also use `Service`. Service is similar to global object.
+- Create the service file in: [`src/app/servers/servers.service.ts`](src/app/servers/servers.service.ts)
+```js
+export class ServersService {
+  private servers = [
+    {
+      id: 1,
+      name: 'Production server',
+      status: 'online'
+    },
+    {
+      id: 2,
+      name: 'Test server',
+      status: 'offline'
+    },
+    {
+      id: 3,
+      name: 'Dev server',
+      status: 'offline'
+    }
+  ];
+
+  getServers() {
+    return this.servers;
+  }
+
+  getServer(id: number) {
+    const server = this.servers.find(
+      (s) => {
+        return s.id === id;
+      }
+    );
+    return server;
+  }
+
+  updateServer(id: number, serverInfo: { name: string, status: string }) {
+    const server = this.servers.find(
+      (s) => {
+        return s.id === id;
+      }
+    );
+    if (server) {
+      server.name = serverInfo.name;
+      server.status = serverInfo.status;
+    }
+  }
+}
+```
+- "Register" the service in the [`src/app/app.module.ts`](src/app/app.module.ts). <br/>
+  The service is "registered" as provider
+```js
+import { ServersService } from './servers/servers.service';
+...
+providers: [ServersService]
+
+```
+### Create the navigation menu
+- Edit [`src/app/app.component.html`](src/app/app.component.html) and add the navigation markup
+```html
+<div class="row justify-content-center">
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#">Servers</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#">Users</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="row">
+    <div class="col-4"></div>
+    <app-home></app-home>
+    <app-users></app-users>
+    <app-servers></app-servers>
+  </div>
+</div>
+<hr />
+```
+### Set the navigation for the project
+- In order to be able to use the navigation we need to import `HttpModule, Routes, RouterModule` in the [`src/app/app.module.ts`](src/app/app.module.ts)
+- We also need to create the `Routers` links.
+  - The routs is a specific structure. `{ path : ... }`
+  ```js
+  const appRoutes: Routes = [{
+      path: '<path to this route>',
+      component: <Component for this route>
+    }];
+  ```
+  - The routes code
+  ```js
+  import { Routes, RouterModule } from '@angular/router';
+  import { HttpClientModule } from '@angular/common/http';
+  ...
+  const appRoutes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'servers', component: ServersComponent }
+  ];
+  ...
+  ```
+  - Register the routes. Registering routes is done via the `RouteModules`
+  ```js
+  imports: [
+    ...
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
+    ...
+  ],
+  ```
+### Component Code
+- Update [`src/app/servers/server/server.component.html]
+```html
+<h5>{{ server.name }}</h5>
+<p>Server status is {{ server.status }}</p>
+```
+
+- Update [`src/app/servers/server-edit/server-edit.component.html`](src/app/servers/server-edit/server-edit.component.html)
+```html
+<div class="form-group">
+  <label for="name">Server Name</label>
+  <input
+    type="text"
+    id="name"
+    class="form-control"
+    [(ngModel)]="serverName">
+</div>
+<div class="form-group">
+  <label for="status">Server Status</label>
+  <select
+    id="status"
+    class="form-control"
+    [(ngModel)]="serverStatus">
+    <option value="online">Online</option>
+    <option value="offline">Offline</option>
+  </select>
+</div>
+<button
+  class="btn btn-primary"
+  (click)="onUpdateServer()">Update Server</button>
+```
+- Update [`src/app/servers/edit-server/edit-server.component.ts`](src/app/servers/edit-server/edit-server.component.ts). We pass the `ServersService` in the Constructor. 
+Angular will inject it automatically if its registered in the app module.
+```js
+// This is the important line
+constructor(private serversService: ServersService) { }
+```
+- The full file content as this stage: 
+```js
+import { Component, OnInit } from '@angular/core';
+import { ServersService } from '../servers.service';
+
+@Component({
+  selector: 'app-server-edit',
+  templateUrl: './edit-server.component.html',
+  styleUrls: ['./edit-server.component.css']
+})
+export class EditServerComponent implements OnInit {
+  server: {id: number, name: string, status: string};
+  serverName = '';
+  serverStatus = '';
+
+  constructor(private serversService: ServersService) { }
+
+  ngOnInit() {
+    this.server = this.serversService.getServer(1);
+    this.serverName = this.server.name;
+    this.serverStatus = this.server.status;
+  }
+
+  onUpdateServer() {
+    this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
+  }
+
+}
+```
+- Update [`src/app/servers/server/server.component.html`](src/app/servers/server/server.component.html) to display the server name & status
+```html
+<h5>{{ server.name }}</h5>
+<p>Server status is {{ server.status }}</p>
+```
+- Update [`src/app/servers/server/server.component.ts`](src/app/servers/server/server.component.ts) with the server property so we will be able to bind it
+```js
+import { Component, OnInit } from '@angular/core';
+import { ServersService } from '../servers.service';
+
+@Component({
+  selector: 'app-server',
+  templateUrl: './server.component.html',
+  styleUrls: ['./server.component.scss']
+})
+export class ServerComponent implements OnInit {
+  // The server properties
+  server: {
+    id: number,
+    name: string,
+    status: string
+  };
+
+  // Inject the serversService
+  constructor(private serversService: ServersService) { }
+
+  ngOnInit() {
+    // Get the first server from the service.
+    // In real life we will have some meaningful business login here
+    this.server = this.serversService.getServer(1);
+  }
+}
+```
+- Update [`src/app/servers/servers.component.html`](src/app/servers/servers.component.html)
+```html
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="list-group">
+      <a href="#" class="list-group-item" *ngFor="let server of servers">
+        {{ server.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <app-server-edit></app-server-edit>
+    <hr>
+    <app-server></app-server>
+  </div>
+</div>
+```
+- Update [`src/app/servers/servers.component.ts`](src/app/servers/servers.component.ts)
+```js
+import { ServersService } from './servers.service';
+...
+export class ServersComponent implements OnInit {
+  ...
+  private servers: {id: number, name: string, status: string}[] = [];
+  
+  constructor(private serversService: ServersService) { }
+
+  ngOnInit() {
+    this.servers = this.serversService.getServers();
+  }
+}
+```
+- Update [`src/app/users/user/user.component.html`](src/app/users/user/user.component.html)
+```html
+<p>User with ID {{ id } loaded.</p>
+<p>User name is {{ name }}</p>
+```
+- Update [`src/app/users/user/user.component.ts`](src/app/users/user/user.component.ts) and add the user object
+```js
+user: {id: number, name: string};
+```
+- Update [`src/app/users/users.component.html`](src/app/users/users.component.html)
+```html
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="list-group">
+      <a
+        href="#"
+        class="list-group-item"
+        *ngFor="let user of users">
+        {{ user.name }}
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <app-user></app-user>
+  </div>
+</div>
+```
+- Update [`src/app/users/users.component.ts`](src/app/users/users.component.ts) and create the users data
+```js
+users = [
+    { id: 1, name: 'Nir' },
+    { id: 2, name: 'Moshe' },
+    { id: 3, name: 'Zrubabel' },
+    { id: 4, name: 'Yehezkel' }
+  ];
+```

@@ -15,6 +15,22 @@ import { ServersManagerComponent } from './servers-manager/servers-manager.compo
 import { HighlightDirective } from './directives/highlight/highlight.directive';
 import { TextHighlightDirective } from './directives/text-highlight.directive';
 import { UnlessDirective } from './unless.directive';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './users/user/user.component';
+import { HomeComponent } from './home/home.component';
+import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ServerEditComponent } from './servers/server-edit/server-edit.component';
+import { ServersService } from './servers/servers.service';
+
+/**
+ * Define the routers for this project
+ */
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'servers', component: ServersComponent }
+];
 
 @NgModule({
   declarations: [
@@ -27,15 +43,21 @@ import { UnlessDirective } from './unless.directive';
     ServersManagerComponent,
     HighlightDirective,
     TextHighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    UsersComponent,
+    UserComponent,
+    HomeComponent,
+    ServerEditComponent
   ],
   imports: [
     BrowserModule,
     // forms module should be in imports not in declarations
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
-  // List all the components which should be available when the applciation 
+  providers: [ServersService],
+  // List all the components which should be available when the application 
   // is started. Angular analyze this components and execute the code
   bootstrap: [AppComponent]
 })
