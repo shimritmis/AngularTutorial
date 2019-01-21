@@ -118,3 +118,44 @@ providers: [ServersService],
 ```
 **At this point using the routes will do a full page reload**
 
+***
+### Step 03 - Add routes and content
+- In order to be able to use the navigation we need to import `HttpClientModule, Routes, RouterModule` in the [`src/app/app.module.ts`](src/app/app.module.ts)
+- We also need to create the `Routers` links.
+  - The routs is a specific structure. `{ path : ... , component: ... }`
+  ```js
+  const appRoutes: Routes = [{
+      path: '<path to this route>',
+      component: <Component for this route>
+    }];
+  ```
+  - The routes code
+  ```js
+  import { Routes, RouterModule } from '@angular/router';
+  import { HttpClientModule } from '@angular/common/http';
+  ...
+  const appRoutes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'servers', component: ServersComponent }
+  ];
+  ...
+  ```
+  - Register the routes. Registering routes is done via the `RouteModules`
+  ```js
+  imports: [
+    ...
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
+    ...
+  ],
+  ```
+- Update the app template [`src/app/app.component.html`](src/app/app.component.html)
+- We need to use the `<router-outlet></router-outlet>` directive in order to display the content of the given route.
+```html
+<div class="row justify-content-center">
+  <router-outlet></router-outlet>
+</div>
+```
+
+
