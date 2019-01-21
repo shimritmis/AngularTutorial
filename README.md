@@ -157,5 +157,20 @@ providers: [ServersService],
   <router-outlet></router-outlet>
 </div>
 ```
-
+***
+### Step 04 - Using `routerLink`
+- At this point the app is refreshing the browser. We want to upload the content without refreshing, do do so we will use `routerLink`. [`src/app/app.component.html`](src/app/app.component.html)
+```html
+<nav class="navbar navbar-dark bg-dark justify-content-center">
+  <div class="row">
+    <a class="navbar-brand" routerLink="/">Home</a>
+    <a class="navbar-brand" routerLink="/servers">Servers</a>
+    <a class="navbar-brand" routerLink="/users">Users</a>
+  </div>
+</nav>
+<hr />
+<div class="row justify-content-center">
+  <router-outlet></router-outlet>
+</div>
+```
 
